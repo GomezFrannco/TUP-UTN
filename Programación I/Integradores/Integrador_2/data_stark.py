@@ -1,5 +1,4 @@
-lista_personajes =\
-[
+lista_personajes = [
   {
     "nombre": "Howard the Duck",
     "identidad": "Howard (Last name unrevealed)",

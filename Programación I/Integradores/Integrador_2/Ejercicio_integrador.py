@@ -86,6 +86,7 @@ def obtener_dato_y_nombre(hero: dict, key: str):
 
     @return
     """
+    key = key.lower()
     if len(hero) == 0:
         return False
     else:
@@ -110,6 +111,7 @@ def obtener_maximo(data_list: list, key: str) -> bool or int or float:
 
     @return
     """
+    key = key.lower()
     max_value = 0
     if len(data_list) == 0:
         return False
@@ -123,8 +125,7 @@ def obtener_maximo(data_list: list, key: str) -> bool or int or float:
     
     return max_value
 
-print(obtener_maximo(lista_personajes, "fuerza"))
-
+# print(obtener_maximo(lista_personajes, "fuerza"))
 
 def obtener_minimo(data_list: list, key: str) -> bool or int or float:
     """
@@ -137,4 +138,81 @@ def obtener_minimo(data_list: list, key: str) -> bool or int or float:
 
     @return
     """
-    pass
+    key = key.lower()
+    min_value = float('inf')
+
+    if len(data_list) == 0:
+        return False
+
+    for hero in data_list:
+        if isinstance(hero[key], int) or isinstance(hero[key], float):
+            if hero[key] < min_value:
+                min_value = hero[key]
+        else:
+            return False
+
+    return min_value
+
+# print(obtener_minimo(lista_personajes,"fuerza"))
+
+def obtener_dato_cantidad(data_list: list, cantidad: int or float, key: str):
+    key = key.lower()
+    hero_list = []
+    if len(data_list) == 0:
+        return False
+    else:
+        for hero in data_list:
+            if hero[key] == cantidad:
+                hero_list.append(hero)
+        return hero_list
+
+#value = obtener_maximo(lista_personajes, "fuerza")
+#print(obtener_dato_cantidad(lista_personajes, value, "fuerza"))
+
+def stark_imprimir_heroes(data_list: list):
+    key = key.lower()
+    if len(data_list) == 0:
+        return False
+    else:
+        for hero in data_list:
+            print("\n")
+            for key, value in hero.items():
+                print(f"{key}: {value}")
+
+#stark_imprimir_heroes(lista_personajes)
+
+def sumar_dato_heroe(data_list: list, key: str):
+    key = key.lower()
+    total_value = 0
+    if len(data_list) == 0:
+        return False    
+    else:
+        for hero in data_list:
+            if isinstance(hero, dict) and len(hero) > 0:
+                total_value += hero[key]
+        return total_value
+            
+#print(sumar_dato_heroe(lista_personajes, "fuerza"))
+
+def dividir(dividendo: int, divisor: int):
+    if divisor == 0:
+        return False
+    else:
+        return int(dividendo / divisor)
+
+#print(dividir(90, 0))
+
+def calcular_promedio(data_list: list, key: str):
+    key = key.lower()
+    total_value = 0
+    values_count = 0 
+    if len(data_list) == 0:
+        return False 
+    for hero in data_list:
+        if key in hero:
+            values_count += 1
+            total_value += hero[key] 
+
+    return round(float(total_value / values_count), 2)
+
+#print(calcular_promedio(lista_personajes, "fuerza"))
