@@ -254,7 +254,7 @@ def imprimir_menu():
     print("8.  CANTIDAD DE HÉROES POR COLOR DE OJOS")
     print("9.  CANTIDAD DE HÉROES POR COLOR DE PELO")
     print("10. LISTA DE HÉROES POR COLOR DE OJOS")
-    print("11. LISTA DE HÉROES POR COLOR DE INTELIGENCIA")
+    print("11. LISTA DE HÉROES POR INTELIGENCIA")
     print("12. SALIR")
     print("|==================================================|")
 
@@ -292,7 +292,34 @@ def obtener_heroes_por_genero(data_list: list, gender: str):
                 hero_list.append(hero)
         return hero_list
 
-# print(obtener_heroes_por_genero(lista_personajes, "f"))
+# print(obtener_heroes_por_genero(lista_personajes, "f")) 
+
+# adicional ✅
+def contar_repetidos(data_list: list):
+    n = len(data_list)
+    values_dict = {}
+    
+    if n == 0:
+        return False
+
+    for i in range(0, n):
+        count = 0
+        
+        for j in range(0, n):
+            # valido si el indice actual es mayor al comparado y si los elementos son iguales
+            if i > j and data_list[i] == data_list[j]:
+                break
+            # valida si los elementos son iguales
+            if data_list[i] == data_list[j]:
+                count += 1
+            else:
+                pass
+        # valida que al menos haya un elemento contado
+        if count != 0:
+            # crea una clave llamada como el elemento actual y le asigna el contador
+            values_dict[data_list[i]] = count
+
+    return values_dict
 
 # 6.0 ❌
 def stark_marvel_app(data_list: list):
@@ -301,7 +328,7 @@ def stark_marvel_app(data_list: list):
     while True:
         user_input = stark_menu_principal()
 
-        if normalized_data != True and user_input != 1 and user_input != 9:
+        if normalized_data != True and user_input != 1 and user_input != 12:
             print("Debe normalizar los datos primero (Opción 1)")
             continue
 
@@ -365,17 +392,80 @@ def stark_marvel_app(data_list: list):
                 print(mostrar_promedio_dato(nb_heros, "fuerza"))
                 
             case 8:
-                print(f"Opción {user_input}")
+                key = "color_ojos"
+                eye_color_list = []
+
+                for hero in data_list:
+                    eye_color_list.append(obtener_dato(hero, key))
+                
+                color_count = contar_repetidos(eye_color_list)
+
+                stark_imprimir_heroes([color_count])
+                #for k, v in color_count.items():
+                 #   print(f"color {k}: {v} héroes")
+
             case 9:
-                print(f"Opción {user_input}")
+                key = "Color_peLO"
+                hair_color_list = []
+
+                for hero in data_list:
+                    hair_color_list.append(obtener_dato(hero, key))
+                
+                color_count = contar_repetidos(hair_color_list)
+                
+                stark_imprimir_heroes([color_count])
+
+                #for k, v in color_count.items():
+                 #   print(f"color {k}: {v} héroes")
+
             case 10:
-                print(f"Opción {user_input}")
+                key = "color_PELO"
+                hero_dict = {}
+
+                for i in range(len(data_list)):
+                    current_color = obtener_dato(data_list[i], key)
+                    # inicio un bucle para comparar el color actual con todos los demas
+                    current_list = []
+                    for j in range(len(data_list)):              
+                        compare = obtener_dato(data_list[j], key)
+                        # valido que no se pueda comparar con un valor anterior 
+                        if i > j and current_color == compare:
+                            break
+                           
+                        if current_color == compare:
+                            hero_dict[current_color] = None
+                            current_list.append(obtener_nombre(data_list[j]))
+                    if len(current_list) != 0:
+                        hero_dict[current_color] = current_list
+
+                stark_imprimir_heroes([hero_dict])
+
             case 11:
-                print(f"Opción {user_input}")
+                key = "inteligencia"
+                hero_dict = {}
+
+                for i in range(len(data_list)):
+                    current_color = obtener_dato(data_list[i], key)
+                    # inicio un bucle para comparar el color actual con todos los demas
+                    current_list = []
+                    for j in range(len(data_list)):              
+                        compare = obtener_dato(data_list[j], key)
+                        # valido que no se pueda comparar con un valor anterior 
+                        if i > j and current_color == compare:
+                            break
+                           
+                        if current_color == compare:
+                            hero_dict[current_color] = None
+                            current_list.append(obtener_nombre(data_list[j]))
+                    if len(current_list) != 0:
+                        hero_dict[current_color] = current_list
+
+                stark_imprimir_heroes([hero_dict])
             case 12:
-                print("CHAU")
+                print("Hasta luego :D")
                 break
+                
             case _:
-                print(f"Opción no válida: {user_input}")
+                print(f"Opción no válida: {user_input}\n Seleccione una opción válida")
 
 stark_marvel_app(lista_personajes)
