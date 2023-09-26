@@ -221,7 +221,7 @@ def sumar_dato_heroe(data_list: list, key: str) -> bool or int or float:
         return total_value
             
 # 4.2 ✅
-def dividir(dividendo: int or float|, divisor: int or float) -> int or float or bool:
+def dividir(dividendo: int or float, divisor: int or float) -> int or float or bool:
     """
     @brief divide dos numeros y devuelve el resultado.
 
@@ -239,7 +239,7 @@ def dividir(dividendo: int or float|, divisor: int or float) -> int or float or 
         return round(dividendo / divisor, 2)
 
 # 4.3 ✅
-def calcular_promedio(data_list: list, key: str) bool or int or float:
+def calcular_promedio(data_list: list, key: str) -> bool or int or float:
     """
     @brief calcula el promedio de los valores encontrados en determinada key.
 
