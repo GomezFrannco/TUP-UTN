@@ -27,7 +27,6 @@ def stark_normalizar_datos(hero_list: list) -> bool:
                 if '.' in value:
                     hero[key] = float(value)
                     modifications += 1
-                # de otro modo es un entero
                 else: 
                     hero[key] = int(value)
                     modifications += 1
@@ -37,17 +36,15 @@ def stark_normalizar_datos(hero_list: list) -> bool:
     else:
         return False
 
-# print(stark_normalizar_datos(lista_personajes))
-
 # 1.1 ✅
 def obtener_nombre(hero: dict) -> bool or str:
     """
-    @brief Según un diccionario que representa a un heroe, valida si no esta vacio y si existe la key 'nombre'.
+    @brief Valida si un diccionario no esta vacio y si existe la key 'nombre'.
 
     @param hero: Un heroe en forma de diccionario.
     @type hero: Diccionario.
 
-    @return valor booleano (True o False) o un string con el nombre del heroe.
+    @return False si no existe la key o si el diccionario esta vacío y un string con el nombre del heroe.
     """
     if len(hero) == 0 or "nombre" not in hero:
         return False
@@ -55,68 +52,66 @@ def obtener_nombre(hero: dict) -> bool or str:
         hero_name = f"Nombre: {hero['nombre']}"
         return hero_name
 
-# print(obtener_nombre(lista_personajes[1]))
-
 # 1.2 ✅
 def obtener_dato(hero: dict, key: str) -> bool or str:
     """
-    @brief
+    @brief Muestra el valor de una clave en un diccionario.
 
-    @param
-    @type
-    @param
-    @type
+    @param hero: Un heroe en forma de diccionario.
+    @type hero: Diccionario.
+    @param key: La clave de la cual se desea obtener el valor.
+    @type key: String.
 
-    @return
+    @return El valor de la key solicitada y False si no existe la key o si el diccionario esta vacío.
     """
     key = key.lower()
+
     if len(hero) == 0 or key not in hero:
         return False
     else:
         return hero[key]
 
-# print(obtener_dato(lista_personajes[0], "Nombre"))
-
 # 2.0 ✅
-def obtener_dato_y_nombre(hero: dict, key: str):
+def obtener_dato_y_nombre(hero: dict, key: str) -> bool or str:
     """
-    @brief
+    @brief muestra el nombre junto del heroe con un valor solicitado mediante una key
 
-    @param
-    @type
-    @param
-    @type
+    @param hero: Un heroe en forma de diccionario.
+    @type hero: Diccionario.
+    @param key: La clave de la cual se desea obtener el valor.
+    @type key: String.
 
-    @return
+    @return False si el diccionario esta vacio o si no existe la key y un string con el nombre y el dato solicitado
     """
     key = key.lower()
-    if len(hero) == 0:
+
+    if len(hero) == 0 or key not in hero:
         return False
     else:
         hero_name = obtener_nombre(hero)
         hero_data = obtener_dato(hero, key)
+
         if hero_name == False or hero_data == False:
             return False
         else:
             hero_info = f"{hero_name} | {key}: {hero_data}"
             return hero_info
 
-# print(obtener_dato_y_nombre(lista_personajes[18], "IDENTIDAD"))
-
 # 3.1 ✅
 def obtener_maximo(data_list: list, key: str) -> bool or int or float:
     """
-    @brief
+    @brief determina el valor máximo de una clave dentro de un diccionario en una lista de diccionarios
 
-    @param
-    @type
-    @param
-    @type
+    @param data_list: Una lista con diccionarios.
+    @type data_list: Lista.
+    @param key: Clave de la cual necesitamos el valor máximo.
+    @type key: string.
 
-    @return
+    @return el número máximo como entero o decimal y False si la lista esta vacia o si el valor no es un numero.
     """
     key = key.lower()
     max_value = 0
+
     if len(data_list) == 0:
         return False
     
@@ -129,21 +124,20 @@ def obtener_maximo(data_list: list, key: str) -> bool or int or float:
     
     return max_value
 
-# print(obtener_maximo(lista_personajes, "fuerza"))
-
 # 3.2 ✅
 def obtener_minimo(data_list: list, key: str) -> bool or int or float:
     """
-    @brief
+    @brief determina el valor mínimo de una clave dentro de un diccionario en una lista de diccionarios.
 
-    @param
-    @type
-    @param
-    @type
+    @param data_list: Una lista con diccionarios.
+    @type data_list: Lista.
+    @param key: Clave de la cual necesitamos el valor máximo.
+    @type key: string.
 
-    @return
+    @return el número máximo como entero o decimal y False si la lista esta vacia o si el valor no es un numero.
     """
     key = key.lower()
+    # se establece un número alto para poder comparar numeros menores al actual
     min_value = float('inf')
 
     if len(data_list) == 0:
@@ -158,12 +152,23 @@ def obtener_minimo(data_list: list, key: str) -> bool or int or float:
 
     return min_value
 
-# print(obtener_minimo(lista_personajes,"fuerza"))
-
 # 3.3 ✅
-def obtener_dato_cantidad(data_list: list, cantidad: int or float, key: str) -> list:
+def obtener_dato_cantidad(data_list: list, cantidad: int or float, key: str) -> list or bool:
+    """
+    @brief devuelve una lista con los heroes que cumplan con la cantidad solicitada para determinada key.
+
+    @param data_list: Una lista de diccionarios.
+    @type data_list: Lista.
+    @param cantidad: La cantidad buscada.
+    @type cantidad: Integer o float.
+    @param key: Clave de la cual necesitamos el valor máximo.
+    @type key: String.
+
+    @return una lista con los valores encontrados o False
+    """
     key = key.lower()
     hero_list = []
+    
     if len(data_list) == 0:
         return False
     else:
@@ -172,11 +177,17 @@ def obtener_dato_cantidad(data_list: list, cantidad: int or float, key: str) -> 
                 hero_list.append(hero)
         return hero_list
 
-#value = obtener_maximo(lista_personajes, "fuerza")
-#print(obtener_dato_cantidad(lista_personajes, value, "fuerza"))
-
 # 3.4 ✅
-def stark_imprimir_heroes(data_list: list):
+def stark_imprimir_heroes(data_list: list) -> None or bool:
+    """
+    @brief recorre una lista de diccionarios e imprime todos sus pares clave valor.
+
+    @param data_list: Una lista de diccionarios.
+    @type data_list: Lista.
+
+    @return False o imprime por consola los datos de los diccionarios.
+    """
+
     if len(data_list) == 0:
         return False
     else:
@@ -185,12 +196,22 @@ def stark_imprimir_heroes(data_list: list):
             for key, value in hero.items():
                 print(f"{key}: {value}")
 
-#stark_imprimir_heroes(lista_personajes)
-
 # 4.1 ✅
-def sumar_dato_heroe(data_list: list, key: str):
+def sumar_dato_heroe(data_list: list, key: str) -> bool or int or float:
+    """
+    @brief suma todos los valores de los diccionarios dentro de una lista.
+
+    @param data_list: Una lista de diccionarios.
+    @type data_list: Lista.
+    @param key: La clave de la cual se desea sumar todos los valores.
+    @type key: String.
+
+    @return False o la cantidad sumada.
+    """
+
     key = key.lower()
     total_value = 0
+    
     if len(data_list) == 0:
         return False    
     else:
@@ -199,19 +220,37 @@ def sumar_dato_heroe(data_list: list, key: str):
                 total_value += hero[key]
         return total_value
             
-#print(sumar_dato_heroe(lista_personajes, "fuerza"))
-
 # 4.2 ✅
-def dividir(dividendo: int, divisor: int):
+def dividir(dividendo: int or float|, divisor: int or float) -> int or float or bool:
+    """
+    @brief divide dos numeros y devuelve el resultado.
+
+    @param dividendo: Número al cual se va a dividir.
+    @type dividendo: Integer o float.
+    @param divisor: Número que divide al del parametro anterior.
+    @type divisor: Integer o float.
+
+    @return False o el resultado de la división
+    """
+
     if divisor == 0:
         return False
     else:
         return round(dividendo / divisor, 2)
 
-#print(dividir(90, 0))
-
 # 4.3 ✅
-def calcular_promedio(data_list: list, key: str):
+def calcular_promedio(data_list: list, key: str) bool or int or float:
+    """
+    @brief calcula el promedio de los valores encontrados en determinada key.
+
+    @param data_list: Lista de diccionarios.
+    @type data_list: Lista.
+    @param key: Clave del valor del cual necesitamos el promedio.
+    @type key: String.
+
+    @return False o el promedio entre los valores de la key.
+    """
+
     key = key.lower()
     total_value = sumar_dato_heroe(data_list, key)
     values_count = 0
@@ -225,10 +264,19 @@ def calcular_promedio(data_list: list, key: str):
 
     return dividir(total_value, values_count)
 
-#print(calcular_promedio(lista_personajes, "fuerza"))
-
 # 4.4 ✅
-def mostrar_promedio_dato(data_list: list, key: str):
+def mostrar_promedio_dato(data_list: list, key: str) -> str or bool:
+    """
+    @brief muestra el promedio calculado de determinada key.
+
+    @param data_list: Lista de diccionarios.
+    @type data_list: Lista.
+    @param key: Clave del valor del cual necesitamos el promedio.
+    @type key: String.
+
+    @return un string con el promedio calculado o False.
+    """
+
     key = key.lower()
 
     if len(data_list) == 0:
@@ -242,7 +290,13 @@ def mostrar_promedio_dato(data_list: list, key: str):
             return False
 
 # 5.1 ✅
-def imprimir_menu():
+def imprimir_menu() -> None:
+    """
+    @brief muestra por consola una serie de opciones que forman un menú.
+
+    @return None
+    """
+
     print("\n|======================[MENÚ]======================|")
     print("1.  NORMALIZAR DATOS")
     print("2.  NOMBRE DE HÉROES DE GÉNERO NB")
@@ -258,16 +312,26 @@ def imprimir_menu():
     print("12. SALIR")
     print("|==================================================|")
 
-# imprimir_menu()
-
 # 5.2 ✅
 def validar_entero(number: str) -> bool:
+    """
+    @brief valida que un string contenga números y sea un número
+
+    @param number: El string que debería ser un número.
+    @type number: String.
+
+    @return True si es un número o False.
+    """
+
     return number.isdigit()
 
-# print(validar_entero("55545s"))
-
 # 5.3 ✅
-def stark_menu_principal():
+def stark_menu_principal() -> int or bool:
+    """
+    @brief despliega el menu por consola y solicita un input al usuario
+
+    @return un entero previamente validado o False
+    """
     
     imprimir_menu()
 
@@ -278,24 +342,43 @@ def stark_menu_principal():
     else:
         return False
     
-# print(stark_menu_principal())
-
 # adicional ✅
-def obtener_heroes_por_genero(data_list: list, gender: str):
+def obtener_heroes_por_genero(data_list: list, gender: str) -> list or bool:
+    """
+    @brief genera una lista de heroes de determinado género.
+
+    @param data_list: Lista de diccionarios.
+    @type data_list: Lista.
+    @param gender: Genero solicitado.
+    @type gender: String.
+
+    @return False o una lista de diccionarios.
+    """
+
     hero_list = []
+
     if len(data_list) == 0 or not isinstance(gender, str) or len(gender) == 0:
         return False
     else:
         gender = gender.upper()
+
         for hero in data_list:
             if obtener_dato(hero, "gEneRO") == gender:
                 hero_list.append(hero)
+
         return hero_list
 
-# print(obtener_heroes_por_genero(lista_personajes, "f")) 
-
 # adicional ✅
-def contar_repetidos(data_list: list):
+def contar_repetidos(data_list: list) -> bool or dict:
+    """
+    @brief cuenta la cantidad de elementos repetidos que hay dentro de una lista.
+
+    @param data_list: Una lista con elementos.
+    @type data_list: Lista.
+
+    @return False o un diccionario.
+    """
+
     n = len(data_list)
     values_dict = {}
     
@@ -321,8 +404,19 @@ def contar_repetidos(data_list: list):
 
     return values_dict
 
-# 6.0 ❌
-def stark_marvel_app(data_list: list):
+# 6.0 ✅
+def stark_marvel_app(data_list: list) -> None:
+    """
+    @brief Se encarga de ejecutar el menú y la lógica detras de la selección de opciones.
+
+    @param
+    @type
+    @param
+    @type
+
+    @return
+    """
+
     normalized_data = False
 
     while True:
@@ -423,19 +517,26 @@ def stark_marvel_app(data_list: list):
                 hero_dict = {}
 
                 for i in range(len(data_list)):
+                    # valor actual en la iteración
                     current_color = obtener_dato(data_list[i], key)
-                    # inicio un bucle para comparar el color actual con todos los demas
+                    # se crea una lista temporal
                     current_list = []
-                    for j in range(len(data_list)):              
+                    # inicia un bucle para comparar el color actual con todos los demas
+                    for j in range(len(data_list)):         
+                        # valor a comparar con el de la iteración actual del bucle anterior     
                         compare = obtener_dato(data_list[j], key)
-                        # valido que no se pueda comparar con un valor anterior 
+                        # valida que no compare con un elemento anterior del mismo valor
                         if i > j and current_color == compare:
                             break
                            
                         if current_color == compare:
+                            # crea una key de nombre igual al valor del primer bucle
                             hero_dict[current_color] = None
+                            # agrega la coincidencia dentro de la lista temporal
                             current_list.append(obtener_nombre(data_list[j]))
+                    
                     if len(current_list) != 0:
+                        # se cambia el valor None por el de la lista temporal
                         hero_dict[current_color] = current_list
 
                 stark_imprimir_heroes([hero_dict])
@@ -445,22 +546,30 @@ def stark_marvel_app(data_list: list):
                 hero_dict = {}
 
                 for i in range(len(data_list)):
+                    # valor actual en la iteración
                     current_color = obtener_dato(data_list[i], key)
-                    # inicio un bucle para comparar el color actual con todos los demas
+                    # se crea una lista temporal
                     current_list = []
-                    for j in range(len(data_list)):              
+                    # inicio un bucle para comparar el color actual con todos los demas
+                    for j in range(len(data_list)):         
+                        # valor a comparar con el de la iteración actual del bucle anterior              
                         compare = obtener_dato(data_list[j], key)
-                        # valido que no se pueda comparar con un valor anterior 
+                        # valida que no compare con un elemento anterior del mismo valor 
                         if i > j and current_color == compare:
                             break
                            
                         if current_color == compare:
+                            # crea una key de nombre igual al valor del primer bucle
                             hero_dict[current_color] = None
+                            # agrega la coincidencia dentro de la lista temporal
                             current_list.append(obtener_nombre(data_list[j]))
+
                     if len(current_list) != 0:
+                        # se cambia el valor None por el de la lista temporal
                         hero_dict[current_color] = current_list
 
                 stark_imprimir_heroes([hero_dict])
+            
             case 12:
                 print("Hasta luego :D")
                 break
