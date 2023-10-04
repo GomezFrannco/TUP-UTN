@@ -12,7 +12,7 @@ TITLE_FONT = pygame.font.SysFont("Arial", 50)
 PARAGRAPH_FONT = pygame.font.SysFont("Arial", 25)
 title = TITLE_FONT.render("Ejercicio Diccionario", False, WHITE, None)
 
-putin_image = pygame.transform.scale(pygame.image.load("putin.jpg"), (100, 100))
+putin_image = pygame.transform.scale(pygame.image.load("./putin.jpg"), (100, 100))
 mbappe_image = pygame.transform.scale(pygame.image.load("mbappe.jpg"), (100, 100))
 snoop_image = pygame.transform.scale(pygame.image.load("snoop.jpg"), (100, 100))
 

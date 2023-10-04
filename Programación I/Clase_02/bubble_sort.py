@@ -13,7 +13,14 @@ def bubble_sort(arr):
         arr[j], arr[j+1] = arr[j+1], arr[j]
 # Ejemplo de uso
 lista = [64, 34, 25, 12, 22, 11, 90]
-bubble_sort(lista)
+# bubble_sort(lista)
 
-print("Lista ordenada:")
-print(lista)
+# print("Lista ordenada:")
+# print(lista)
+
+sum = 0
+for n in range(50):
+  sum += 3*n
+  print(sum)
+
+# print(sum)
