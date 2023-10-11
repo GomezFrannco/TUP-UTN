@@ -41,27 +41,28 @@ void loop()
   int resCurrentState = digitalRead(RES_BTN);
   // arreglo con los estados actuales
   int btnStates[3] = {incCurrentState, decCurrentState, resCurrentState};
-  // al haber 3 pulsadores, el for tiene 3 iteraciones
+  // al evaluar 3 pulsadores (incremento, decremento y reset), el for tiene 3 iteraciones
   for (int i = 0; i < 3; i++)
   {
-    // se compara un cambio en el estado actual del pulsador
-    if(btnStates[i] != btnLastStates[i])
+    // se compara un cambio en el estado actual del pulsador (detecta un 0 en el pulsador) 
+    if(btnStates[i] != btnLastStates[i]) // linea 17
     {
+      // si es 0 se presionó (pullup interno)
       if (btnStates[i] == LOW)
       {
-        // solo se accede en caso de presionar el pulsador
+        // (aumenta en 1, decrementa en 1, o establece en 0 el contador) solo se accede en caso de presionar el pulsador
         handleCounter(i);
       }
     }
   }
-  // se actualiza el estado anterior con el actual (presionado o no)
+  // se los establece como iguales para realizar la comparación de la línea 48
   btnLastStates[0] = incCurrentState;
   btnLastStates[1] = decCurrentState;
   btnLastStates[2] = resCurrentState;
-  
+  // se muestra en el display el numero actual del contador
   handleDigits(counter);
 }
-// prendido y apagado de pines
+// funciones de prendido y apagado de pines (reusabilidad)
 void lightOn(int pin)
 {
   digitalWrite(pin, HIGH);
@@ -70,7 +71,7 @@ void lightOff(int pin)
 {
   digitalWrite(pin, LOW);
 }
-// con el proposito de no ser repetitivo, todos los números están hechos a partir del 0
+// funciones para formar numeros en el display 7 segmentos
 void numberZeroOn()
 {
   lightOn(A);
@@ -81,6 +82,7 @@ void numberZeroOn()
   lightOn(F);
   lightOff(G);
 }
+// a partir de aca todos los numeros son realizados a partir de otros (ahorra varias lineas)
 void numberOneOn()
 {
   numberZeroOn();
@@ -137,7 +139,7 @@ void numberNineOn()
   numberFourOn();
   lightOn(A);
 }
-// muestra el numero del parametro en el display
+// permite elegir que numero mostrar en el display a partir de un parametro
 void showNumber(int number)
 {
   switch (number)
